@@ -16,6 +16,14 @@ async function run(){
     try{
         await client.connect();
         console.log('Database Connected');
+        const serviceCollection = client.db('doctorPortal').collection('services');
+        
+        app.get('/service', async(req,res)=>{
+          const query ={};
+          const cursor = serviceCollection.find(query);
+          const services = await cursor.toArray();
+          res.send(services);
+        })
     }
     finally{
 
